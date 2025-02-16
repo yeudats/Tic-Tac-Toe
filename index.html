@@ -25,7 +25,7 @@
             grid-template-rows: repeat(3, 1fr);
             gap: 10px;
             width: 80vw;
-            height: 80vh;
+            height: 80vw;
             max-width: 80vh;
             max-height: 80vh;
         }
@@ -149,6 +149,21 @@
             100% {
                 opacity: 0;
                 transform: translateX(-50%) translateY(-20px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .board {
+                width: 90vw;
+                height: 90vh;
+            }
+
+            .but {
+                font-size: 20px;
+            }
+
+            #reset {
+                font-size: 150%;
             }
         }
     </style>
