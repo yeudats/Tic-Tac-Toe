@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="x.png">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to left, #f84a4a, #080808);
+            flex-direction: column;
+        }
+
+        
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 10vw);
+            grid-template-rows: repeat(3, 10vw);
+            gap: 10px;
+        }
+
+        
+        .but {
+            padding: 0;
+            border-radius: 12%;
+            width: 100%;
+            height: 100%;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), 0px 0px 10px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            background: radial-gradient(circle closest-side, #f8b2b2 30%, #fd6060 70%, #444444 100%);
+
+        }
+
+        .but:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3), 0px 0px 15px rgba(0, 0, 0, 0.2);
+            background: radial-gradient(circle closest-side, #f8b2b2 50%, #fd6060 90%, #444444 120%);
+        }
+
+        .but:active {
+            transform: scale(0.95);
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(0, 0, 0, 0.1);
+            background: radial-gradient(circle closest-side, #f8b2b2 5%, #fd6060 50%, #444444 90%);
+        }
+
+        .but img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            opacity: 0;
+            transform: scale(0);
+            animation: enterImage 1s forwards;
+        }
+
+        @keyframes enterImage {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+
+        .resets {
+            margin-top: 40px;
+        }
+
+        #reset {
+            padding: 10px 20px;
+            font-size: 200%;
+            background: radial-gradient(circle closest-side, #f7b7b7 30%, #faa0a0 70%, #fa6767 200%);
+            color: rgb(128, 0, 0);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #reset:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3), 0px 0px 15px rgba(0, 0, 0, 0.2);
+            background: radial-gradient(circle closest-side, #f7b7b7 50%, #faa0a0 90%, #fa6767 220%);
+        }
+
+        #reset:active {
+            transform: scale(0.95);
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(0, 0, 0, 0.1);
+            background: radial-gradient(circle closest-side, #f7b7b7 10%, #faa0a0 50%, #fa6767 180%);
+        }
+    </style>
+</head>
+<body>
+    <div class="board">
+        <button id="a" class="but" onclick="set_X_O(this)"></button>
+        <button id="b" class="but" onclick="set_X_O(this)"></button>
+        <button id="c" class="but" onclick="set_X_O(this)"></button>
+        <button id="d" class="but" onclick="set_X_O(this)"></button>
+        <button id="e" class="but" onclick="set_X_O(this)"></button>
+        <button id="f" class="but" onclick="set_X_O(this)"></button>
+        <button id="g" class="but" onclick="set_X_O(this)"></button>
+        <button id="h" class="but" onclick="set_X_O(this)"></button>
+        <button id="i" class="but" onclick="set_X_O(this)"></button>
+    </div>
+    <div class="resets">
+        <button id="reset" onclick="resetgame(),switchTurn()">משחק חדש</button>
+    </div>
+    <script>
+        let turn = {a:true, b:'x'}
+        function set_X_O(button){
+            if (button.innerHTML == '') {
+                button.innerHTML = `<img src='${turn.b}.png'>`
+                console.log(turn.b);//למה בזמן הניצחון זה מראה איקס
+                setTimeout(() => {
+                    check_win();
+                    check_draw();
+                    switchTurn();
+                    }, 200);
+                
+            }
+        }
+
+        function switchTurn() {
+            turn.a = !turn.a;
+            if (turn.b == 'x'){turn.b = 'o'}
+            else if (turn.b == 'o'){turn.b = 'x'}
+        }
+
+
+        function check_win(){
+            let rows = [[a,b,c],
+                        [d,e,f],
+                        [g,h,i],
+                        [a,d,g],
+                        [b,e,h],
+                        [c,f,i],
+                        [a,e,i],
+                        [c,e,g]];
+            
+            for(let row of rows) {
+                const [row_a, row_b, row_c] = row
+                if(row_a.innerHTML && row_b.innerHTML==row_a.innerHTML && row_c.innerHTML==row_a.innerHTML){
+                    
+                    
+                    alert(`${turn.b} is won!`);
+                    resetgame();
+                    break;
+                }
+            }
+        }
+
+
+        function check_draw(){
+            let rows = [[a,b,c],
+                        [d,e,f],
+                        [g,h,i],
+                        [a,d,g],
+                        [b,e,h],
+                        [c,f,i],
+                        [a,e,i],
+                        [c,e,g]];
+
+            
+            const buttons = document.querySelectorAll('.but');
+            let draw = true
+            for(let button of buttons) {
+                if(button.innerHTML == ''){
+                    draw = false
+                    break;
+                }};
+            if(draw){
+                alert('It\'s a draw!');
+                resetgame();
+            }
+        }
+
+
+
+        function resetgame(){
+            turn.a = false;
+            turn.b = 'o'
+
+            const buttons = document.querySelectorAll('.but');
+            buttons.forEach(button => button.innerHTML = '');
+        }
+    </script>
+</body>
+</html>
