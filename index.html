@@ -112,17 +112,24 @@
             bottom: 10%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: rgba(176, 169, 240, 0.7);
-            color: rgb(3, 124, 30);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: rgb(137, 212, 255);
             padding: 20px;
             border-radius: 10px;
             display: none;
-            font-size: 2.5em; /* גודל פונט גדול */
+            font-size: 3em;
             text-align: center;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             opacity: 0;
             animation: showPopup 0.5s forwards;
+            width: 200px;
+            max-width: 400px;
+            max-height: 150px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: auto;
         }
 
         @keyframes showPopup {
@@ -146,6 +153,7 @@
                 transform: translateX(-50%) translateY(-20px);
             }
         }
+
     </style>
 </head>
 <body>
@@ -167,11 +175,12 @@
         <p id="popup-message"></p>
     </div>
     <script>
+        let win = false;
         let turn = {a:true, b:'x'}
         function set_X_O(button){
-            if (button.innerHTML == '') {
+            if (button.innerHTML == '' && !win) {
                 button.innerHTML = `<img src='${turn.b}.png'>`
-                console.log(turn.b);
+                
                 setTimeout(() => {
                     check_win();
                     check_draw();
@@ -203,7 +212,9 @@
                 if(row_a.innerHTML && row_b.innerHTML==row_a.innerHTML && row_c.innerHTML==row_a.innerHTML){
                     
                     
-                    showPopup(`${turn.b} is won!`);
+                    showPopup(`!ניצח ${turn.b}`);
+                    win = true;
+                    
                     break;
                 }
             }
@@ -229,7 +240,7 @@
                     break;
                 }};
             if(draw){
-                showPopup('It\'s a draw!');
+                showPopup('!תיקו');
             }
         }
 
@@ -237,7 +248,8 @@
 
         function resetgame(){
             turn.a = true;
-            turn.b = 'x'
+            turn.b = 'x';
+            win = false;
 
             const buttons = document.querySelectorAll('.but');
             buttons.forEach(button => button.innerHTML = '');
