@@ -183,7 +183,7 @@
                 
                 setTimeout(() => {
                     check_win();
-                    check_draw();
+                    !win && check_draw();
                     switchTurn();
                     }, 200);
                 
