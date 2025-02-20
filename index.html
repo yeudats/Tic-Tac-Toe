@@ -6,37 +6,31 @@
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="x.png">
     <style>
-        body {
+          body {
             margin: 0;
-            height: 100vh;
-            width: 100vw;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             background: linear-gradient(to left, #f84a4a, #080808);
-            flex-direction: column;
             overflow: hidden;
+            height: 100vh;
+            font-family: Arial, sans-serif;
         }
 
-        
         .board {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 10px;
-            width: 80vw;
-            height: 80vw;
-            max-width: 80vh;
-            max-height: 80vh;
+            gap: 5px;
+            width: 80vw;  /* גודל מותאם בהתאם לרוחב המסך */
+            height: 80vw; /* גובה מותאם בהתאם לרוחב המסך, כך שיהיה ריבוע */
+            max-width: 600px; /* גבול גודל ריבועי מקסימלי */
+            max-height: 600px; /* גבול גובה ריבועי מקסימלי */
         }
 
-        
         .but {
             padding: 0;
             border-radius: 12%;
-            width: 100%;
-            height: 100%;
-            font-size: 24px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -80,23 +74,25 @@
             }
         }
 
-
         .resets {
-            margin-top: 40px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
 
         #reset {
-            padding: 10px 20px;
-            font-size: 200%;
+            padding: 1em 2em;
+            font-size: 2em; /* גודל פונט גדול */
             background: radial-gradient(circle closest-side, #f7b7b7 30%, #faa0a0 70%, #fa6767 200%);
             color: rgb(128, 0, 0);
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            display: block;
-            margin: 0 auto;
+            display: inline-block;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
 
         #reset:hover {
@@ -111,10 +107,9 @@
             background: radial-gradient(circle closest-side, #f7b7b7 10%, #faa0a0 50%, #fa6767 180%);
         }
 
-
         .popup {
             position: fixed;
-            bottom: 46%;
+            bottom: 10%;
             left: 50%;
             transform: translateX(-50%);
             background-color: rgba(176, 169, 240, 0.7);
@@ -122,7 +117,7 @@
             padding: 20px;
             border-radius: 10px;
             display: none;
-            font-size: 250%;
+            font-size: 2.5em; /* גודל פונט גדול */
             text-align: center;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
             z-index: 1000;
@@ -149,21 +144,6 @@
             100% {
                 opacity: 0;
                 transform: translateX(-50%) translateY(-20px);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .board {
-                width: 90vw;
-                height: 90vh;
-            }
-
-            .but {
-                font-size: 20px;
-            }
-
-            #reset {
-                font-size: 150%;
             }
         }
     </style>
