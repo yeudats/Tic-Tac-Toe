@@ -180,7 +180,6 @@
         function set_X_O(button){
             if (button.innerHTML == '' && !win) {
                 button.innerHTML = `<img src='${turn.b}.png'>`
-                console.log(turn.b);
                 
                 setTimeout(() => {
                     check_win();
