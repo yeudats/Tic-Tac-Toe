@@ -22,10 +22,10 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 5px;
-            width: 80vw;  /* גודל מותאם בהתאם לרוחב המסך */
-            height: 80vw; /* גובה מותאם בהתאם לרוחב המסך, כך שיהיה ריבוע */
-            max-width: 600px; /* גבול גודל ריבועי מקסימלי */
-            max-height: 600px; /* גבול גובה ריבועי מקסימלי */
+            width: 80vw;
+            height: 80vw;
+            max-width: 600px;
+            max-height: 600px;
         }
 
         .but {
@@ -83,7 +83,7 @@
 
         #reset {
             padding: 1em 2em;
-            font-size: 2em; /* גודל פונט גדול */
+            font-size: 2em;
             background: radial-gradient(circle closest-side, #f7b7b7 30%, #faa0a0 70%, #fa6767 200%);
             color: rgb(128, 0, 0);
             border: none;
@@ -179,14 +179,12 @@
         let turn = {a:true, b:'x'}
         function set_X_O(button){
             if (button.innerHTML == '' && !win) {
+                disableButtons();
                 button.innerHTML = `<img src='${turn.b}.png'>`
-                
-                setTimeout(() => {
-                    check_win();
-                    !win && check_draw();
-                    switchTurn();
-                    }, 200);
-                
+                check_win();
+                !win && check_draw();
+                switchTurn();
+                enableButtons();
             }
         }
 
@@ -245,6 +243,20 @@
         }
 
 
+        let buttonss = document.querySelectorAll(".button");
+
+        function disableButtons() {
+            buttonss.forEach(buttons => {
+                buttons.disabled = true;
+            });
+        }
+
+        function enableButtons() {
+            buttonss.forEach(buttons => {
+                buttons.disabled = false;
+            });
+        }
+
 
         function resetgame(){
             turn.a = true;
@@ -261,17 +273,17 @@
             const popupMessage = document.getElementById('popup-message');
             popupMessage.textContent = message;
 
-            // הצגת ההודעה
+            
             popup.style.display = 'block';
             popup.style.animation = 'showPopup 0.5s forwards';
 
-            // הסתתרות אחרי 2 שניות
+            
             setTimeout(() => {
                 popup.style.animation = 'hidePopup 0.5s forwards';
                 setTimeout(() => {
                     popup.style.display = 'none';
-                }, 500); // זמן ההתממשות של האנימציה
-            }, 2000); // זמן שההודעה תישאר על המסך (2 שניות)
+                }, 500);
+            }, 2000);
         }
     </script>
 </body>
