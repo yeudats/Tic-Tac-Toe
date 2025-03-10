@@ -1,5 +1,6 @@
 * {
-    -webkit-tap-highlight-color: transparent; /* מסיר את הילה הכחולה */
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
 }
 
 body {
@@ -13,7 +14,7 @@ body {
     width: 100vw;
     font-family: Arial, sans-serif;
     overflow: hidden;
-    background-color: rgb(238, 5, 199);
+    background-color: rgb(253, 234, 250);
 }
 
 .board {
