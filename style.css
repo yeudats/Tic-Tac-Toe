@@ -11,12 +11,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* background: linear-gradient(to left, #f84a4a, #080808); */
+    background: linear-gradient(to left, #f84a4a, #080808);
     height: 100vh;
     width: 100vw;
     font-family: Arial, sans-serif;
     overflow: hidden;
-    background-color: rgb(126, 94, 245);
 }
 
 .board {
@@ -73,6 +72,16 @@ body {
     100% {
         opacity: 1;
         transform: scale(1);
+    }
+}
+@keyframes exitImage {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
     }
 }
 
