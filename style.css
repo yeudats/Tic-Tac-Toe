@@ -9,7 +9,7 @@ body {
     width: 100vw;
     font-family: Arial, sans-serif;
     overflow: hidden;
-    background-color: rgb(252, 70, 237);
+    background-color: rgb(15, 241, 45);
 }
 
 .board {
@@ -34,6 +34,7 @@ body {
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     background: radial-gradient(circle closest-side, #f8b2b2 30%, #fd6060 70%, #444444 100%);
     aspect-ratio: 1;
+    outline: none;
     touch-action: manipulation;
     user-select: none;
 }
@@ -48,8 +49,6 @@ body {
     transform: scale(0.95);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(0, 0, 0, 0.1);
     background: radial-gradient(circle closest-side, #f8b2b2 5%, #fd6060 50%, #444444 90%);
-    outline: none;
-    box-shadow: none;
 }
 
 .but::-moz-focus-inner {
