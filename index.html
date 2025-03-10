@@ -110,20 +110,12 @@
         }
 
         document.querySelectorAll('.but, #reset').forEach(button => {
-            button.addEventListener('mousedown', function() {
-                this.classList.remove('hover');
-                this.classList.add('active');
-            });
-            button.addEventListener('mouseup', function() {
-                this.classList.remove('active');
-            });
             button.addEventListener('mouseenter', function() {
                 (!('ontouchstart' in window)) && this.classList.add('hover');
             });
             button.addEventListener('mouseleave', function() {
                 (!('ontouchstart' in window)) && this.classList.remove('hover');
             });
-
         });
 
 

@@ -16,7 +16,7 @@ body {
     width: 100vw;
     font-family: Arial, sans-serif;
     overflow: hidden;
-    background-color: rgb(0, 255, 170);
+    background-color: rgb(126, 94, 245);
 }
 
 .board {
@@ -49,7 +49,7 @@ body {
     background: radial-gradient(circle closest-side, #f8b2b2 50%, #fd6060 90%, #444444 120%);
 }
 
-.but.active {
+.but:active {
     transform: scale(0.95);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(0, 0, 0, 0.1);
     background: radial-gradient(circle closest-side, #f8b2b2 5%, #fd6060 50%, #444444 90%);
@@ -97,7 +97,7 @@ body {
     background: radial-gradient(circle closest-side, #f7b7b7 50%, #faa0a0 90%, #fa6767 220%);
 }
 
-#reset.active {
+#reset:active {
     transform: scale(0.95);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(0, 0, 0, 0.1);
     background: radial-gradient(circle closest-side, #f7b7b7 10%, #faa0a0 50%, #fa6767 180%);
