@@ -113,14 +113,16 @@
             button.addEventListener('mousedown', function() {
                 this.classList.add('active');
             });
-
             button.addEventListener('mouseup', function() {
                 this.classList.remove('active');
             });
-
-            button.addEventListener('mouseleave', function() {
-                this.classList.remove('active');
+            button.addEventListener('mouseenter', function() {
+                this.classList.add('hover');
             });
+            button.addEventListener('mouseleave', function() {
+                this.classList.remove('hover');
+            });
+
         });
 
 

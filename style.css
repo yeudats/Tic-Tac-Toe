@@ -11,11 +11,12 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to left, #f84a4a, #080808);
+    /* background: linear-gradient(to left, #f84a4a, #080808); */
     height: 100vh;
     width: 100vw;
     font-family: Arial, sans-serif;
     overflow: hidden;
+    background-color: blue;
 }
 
 .board {
@@ -28,7 +29,7 @@ body {
     max-height: 100vmax;
 }
 
-.but.hover,.but.active,.but {
+.but {
     padding: 0;
     border-radius: 12%;
     display: flex;
@@ -42,13 +43,13 @@ body {
     aspect-ratio: 1;
 }
 
-.but:hover {
+.but.hover {
     transform: scale(1.05);
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3), 0px 0px 15px rgba(0, 0, 0, 0.2);
     background: radial-gradient(circle closest-side, #f8b2b2 50%, #fd6060 90%, #444444 120%);
 }
 
-.but:active {
+.but.active {
     transform: scale(0.95);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(0, 0, 0, 0.1);
     background: radial-gradient(circle closest-side, #f8b2b2 5%, #fd6060 50%, #444444 90%);
@@ -75,7 +76,7 @@ body {
     }
 }
 
-#reset.hover, #reset.active, #reset {
+#reset {
     padding: 1em 2em;
     font-size: 3vmin;
     background: radial-gradient(circle closest-side, #f7b7b7 30%, #faa0a0 70%, #fa6767 200%);
@@ -90,13 +91,13 @@ body {
     min-width: 10vmin;
 }
 
-#reset:hover {
+#reset.hover {
     transform: scale(1.05);
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3), 0px 0px 15px rgba(0, 0, 0, 0.2);
     background: radial-gradient(circle closest-side, #f7b7b7 50%, #faa0a0 90%, #fa6767 220%);
 }
 
-#reset:active {
+#reset.active {
     transform: scale(0.95);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(0, 0, 0, 0.1);
     background: radial-gradient(circle closest-side, #f7b7b7 10%, #faa0a0 50%, #fa6767 180%);
