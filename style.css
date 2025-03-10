@@ -1,6 +1,8 @@
 * {
     -webkit-tap-highlight-color: transparent;
     box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 body {
@@ -27,7 +29,7 @@ body {
     max-height: 100vmax;
 }
 
-.but {
+.but:focus, .but {
     padding: 0;
     border-radius: 12%;
     display: flex;
@@ -39,9 +41,6 @@ body {
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     background: radial-gradient(circle closest-side, #f8b2b2 30%, #fd6060 70%, #444444 100%);
     aspect-ratio: 1;
-    outline: none;
-    touch-action: manipulation;
-    user-select: none;
 }
 
 .but:hover {
@@ -50,18 +49,11 @@ body {
     background: radial-gradient(circle closest-side, #f8b2b2 50%, #fd6060 90%, #444444 120%);
 }
 
-.but:focus, .but:active {
+.but:active {
     transform: scale(0.95);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(0, 0, 0, 0.1);
     background: radial-gradient(circle closest-side, #f8b2b2 5%, #fd6060 50%, #444444 90%);
-    outline: none; /* מסיר את ה-outline (הילה כחולה) */
-    box-shadow: none; /* מסיר את הצללה שנוספת */
 }
-
-.but::-moz-focus-inner {
-    border: none;
-}
-
 
 .but img {
     width: 80%;
@@ -83,7 +75,7 @@ body {
     }
 }
 
-#reset {
+#reset:focus, #reset {
     padding: 1em 2em;
     font-size: 3vmin;
     background: radial-gradient(circle closest-side, #f7b7b7 30%, #faa0a0 70%, #fa6767 200%);
@@ -99,18 +91,20 @@ body {
 }
 
 #reset:hover {
+    transform: scale(1.05);
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3), 0px 0px 15px rgba(0, 0, 0, 0.2);
     background: radial-gradient(circle closest-side, #f7b7b7 50%, #faa0a0 90%, #fa6767 220%);
 }
 
 #reset:active {
+    transform: scale(0.95);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 5px rgba(0, 0, 0, 0.1);
     background: radial-gradient(circle closest-side, #f7b7b7 10%, #faa0a0 50%, #fa6767 180%);
 }
 
 .popup {
     position: fixed;
-    bottom: 10%;
+    bottom: 7%;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.7);
