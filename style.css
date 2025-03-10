@@ -47,6 +47,11 @@ body {
     background: radial-gradient(circle closest-side, #f8b2b2 5%, #fd6060 50%, #444444 90%);
 }
 
+.but:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .but img {
     width: 80%;
     height: 80%;
