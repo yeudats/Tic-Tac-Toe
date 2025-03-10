@@ -16,7 +16,7 @@ body {
     width: 100vw;
     font-family: Arial, sans-serif;
     overflow: hidden;
-    background-color: rgb(253, 234, 250);
+    background-color: rgb(75, 2, 192);
 }
 
 .board {
@@ -29,7 +29,7 @@ body {
     max-height: 100vmax;
 }
 
-.but:focus, .but {
+.but.active,.but {
     padding: 0;
     border-radius: 12%;
     display: flex;
@@ -55,6 +55,7 @@ body {
     background: radial-gradient(circle closest-side, #f8b2b2 5%, #fd6060 50%, #444444 90%);
 }
 
+
 .but img {
     width: 80%;
     height: 80%;
@@ -75,7 +76,7 @@ body {
     }
 }
 
-#reset:focus, #reset {
+#reset.active, #reset {
     padding: 1em 2em;
     font-size: 3vmin;
     background: radial-gradient(circle closest-side, #f7b7b7 30%, #faa0a0 70%, #fa6767 200%);
@@ -104,7 +105,7 @@ body {
 
 .popup {
     position: fixed;
-    bottom: 7%;
+    bottom: 4%;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.7);
