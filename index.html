@@ -125,8 +125,20 @@
             turn.b = 'x';
             win = false;
 
+
             const buttons = document.querySelectorAll('.but');
-            buttons.forEach(button => button.innerHTML = '');
+            buttons.forEach(button => button.style.animation = 'exitButtons 1s backwards');
+            setTimeout(() => {
+                buttons.forEach(button => button.innerHTML = '');
+                buttons.forEach(button => button.style.animation = 'enterButtons 1s forwards');
+            }, 700);
+            setTimeout(() => {
+                buttons.forEach(button => {
+                    button.style.opacity = NaN;
+                    button.style.transform = NaN;
+                    button.style.animation = NaN;
+                });
+            }, 1700);
         }
 
 

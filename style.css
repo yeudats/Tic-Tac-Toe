@@ -42,6 +42,27 @@ body {
     aspect-ratio: 1;
 }
 
+@keyframes enterButtons {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+@keyframes exitButtons {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
 .but.hover {
     transform: scale(1.05);
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3), 0px 0px 15px rgba(0, 0, 0, 0.2);
@@ -72,16 +93,6 @@ body {
     100% {
         opacity: 1;
         transform: scale(1);
-    }
-}
-@keyframes exitImage {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0);
     }
 }
 
@@ -130,6 +141,7 @@ body {
     animation: showPopup 0.5s forwards;
     width: 50vmin;
     max-width: 300px;
+    pointer-events: none;
 }
 
 @keyframes showPopup {
