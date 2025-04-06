@@ -1,164 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="x.png">
-    <link rel="stylesheet" href="o.png">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="board">
-        <div id="a" class="but" onclick="set_X_O(this)" role="button"></div>
-        <div id="b" class="but" onclick="set_X_O(this)" role="button"></div>
-        <div id="c" class="but" onclick="set_X_O(this)" role="button"></div>
-        <div id="d" class="but" onclick="set_X_O(this)" role="button"></div>
-        <div id="e" class="but" onclick="set_X_O(this)" role="button"></div>
-        <div id="f" class="but" onclick="set_X_O(this)" role="button"></div>
-        <div id="g" class="but" onclick="set_X_O(this)" role="button"></div>
-        <div id="h" class="but" onclick="set_X_O(this)" role="button"></div>
-        <div id="i" class="but" onclick="set_X_O(this)" role="button"></div>
-    </div>
-    <div class="resets">
-        <div id="reset" onclick="resetgame()" role="button">משחק חדש</div>
-    </div>
-    <div id="popup" class="popup">
-        <p id="popup-message"></p>
-    </div>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+        <div class="board">
+          <div id="a" class="but" onclick="set_X_O(this)" role="button"></div>
+          <div id="b" class="but" onclick="set_X_O(this)" role="button"></div>
+          <div id="c" class="but" onclick="set_X_O(this)" role="button"></div>
+          <div id="d" class="but" onclick="set_X_O(this)" role="button"></div>
+          <div id="e" class="but" onclick="set_X_O(this)" role="button"></div>
+          <div id="f" class="but" onclick="set_X_O(this)" role="button"></div>
+          <div id="g" class="but" onclick="set_X_O(this)" role="button"></div>
+          <div id="h" class="but" onclick="set_X_O(this)" role="button"></div>
+          <div id="i" class="but" onclick="set_X_O(this)" role="button"></div>
+        </div>
+        <div class="resets">
+          <div id="reset" onclick="resetgame()" role="button">משחק חדש</div>
+        </div>
+        <div id="popup" class="popup">
+          <p id="popup-message"></p>
+        </div>
     <script>
-        let win = false;
-        let turn = {a:true, b:'x'}
-        function set_X_O(button){
-            if (button.innerHTML == '' && !win) {
-                disableButtons();
-                button.innerHTML = `<img src='${turn.b}.png'>`
-                check_win();
-                !win && check_draw();
-                switchTurn();
-                enableButtons();
+      let win = false;
+      let turn = { a: true, b: "x" };
+      let board = ["", "", "", "", "", "", "", "", ""];
+
+      const scores = {
+        o: 1,
+        x: -1,
+        tie: 0,
+      };
+
+      const buttonToIndex = {
+        a: 0,
+        b: 1,
+        c: 2,
+        d: 3,
+        e: 4,
+        f: 5,
+        g: 6,
+        h: 7,
+        i: 8,
+      };
+
+      const indexToButtonId = {
+        0: "a",
+        1: "b",
+        2: "c",
+        3: "d",
+        4: "e",
+        5: "f",
+        6: "g",
+        7: "h",
+        8: "i",
+      };
+
+      function computerTurn() {
+        let difficulty = "hard";
+        let bestMove;
+
+        if (difficulty === "easy") {
+          let emptySpots = board
+            .map((val, index) => (val === "" ? index : null))
+            .filter((val) => val !== null);
+          bestMove = emptySpots[Math.floor(Math.random() * emptySpots.length)];
+        } else if (difficulty === "medium") {
+          if (Math.random() < 0.5) {
+            let emptySpots = board
+              .map((val, index) => (val === "" ? index : null))
+              .filter((val) => val !== null);
+            bestMove =
+              emptySpots[Math.floor(Math.random() * emptySpots.length)];
+          } else {
+            bestMove = getBestMove();
+          }
+        } else {
+          bestMove = getBestMove();
+        }
+
+        set_X_O(document.getElementById(indexToButtonId[bestMove]));
+      }
+
+      function getBestMove() {
+        let bestScore = -2;
+        let bestMove;
+        let bord = board;
+        let score;
+        for (let i = 0; i < bord.length; i++) {
+          if (bord[i] === "") {
+            bord[i] = "o";
+            score = minimax(bord, 0, false);
+            bord[i] = "";
+
+            if (score > bestScore) {
+              bestScore = score;
+              bestMove = i;
             }
+          }
         }
 
-        function switchTurn() {
-            turn.a = !turn.a;
-            if (turn.b == 'x'){turn.b = 'o'}
-            else if (turn.b == 'o'){turn.b = 'x'}
+        return bestMove;
+      }
+
+      function minimax(bord, depth, isMaximizing) {
+        let result = checkWinner();
+        if (result !== null) {
+          return scores[result];
         }
 
-
-        function check_win(){
-            let rows = [[a,b,c],
-                        [d,e,f],
-                        [g,h,i],
-                        [a,d,g],
-                        [b,e,h],
-                        [c,f,i],
-                        [a,e,i],
-                        [c,e,g]];
-            
-            for(let row of rows) {
-                const [row_a, row_b, row_c] = row
-                if(row_a.innerHTML && row_b.innerHTML==row_a.innerHTML && row_c.innerHTML==row_a.innerHTML){
-                    
-                    
-                    showPopup(`!ניצח ${turn.b}`);
-                    win = true;
-                    
-                    break;
-                }
+        if (isMaximizing) {
+          let bestScore = -Infinity;
+          for (let i = 0; i < bord.length; i++) {
+            if (bord[i] === "") {
+              bord[i] = "o";
+              let score = minimax(bord, depth + 1, false);
+              bord[i] = "";
+              bestScore = Math.max(score, bestScore);
             }
-        }
-
-
-        function check_draw(){
-            let rows = [[a,b,c],
-                        [d,e,f],
-                        [g,h,i],
-                        [a,d,g],
-                        [b,e,h],
-                        [c,f,i],
-                        [a,e,i],
-                        [c,e,g]];
-
-            
-            const buttons = document.querySelectorAll('.but');
-            let draw = true
-            for(let button of buttons) {
-                if(button.innerHTML == ''){
-                    draw = false
-                    break;
-                }};
-            if(draw){
-                showPopup('!תיקו');
+          }
+          return bestScore;
+        } else {
+          let bestScore = Infinity;
+          for (let i = 0; i < bord.length; i++) {
+            if (bord[i] === "") {
+              bord[i] = "x";
+              let score = minimax(bord, depth + 1, true);
+              bord[i] = "";
+              bestScore = Math.min(score, bestScore);
             }
+          }
+          return bestScore;
+        }
+      }
+
+      function checkWinner() {
+        const winPatterns = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6],
+        ];
+
+        for (let pattern of winPatterns) {
+          const [a, b, c] = pattern;
+          if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+            return board[a];
+          }
         }
 
+        return board.includes("") ? null : "tie";
+      }
 
-        let buttonss = document.querySelectorAll(".button");
-
-        function disableButtons() {
-            buttonss.forEach(buttons => {
-                buttons.disabled = true;
-            });
+      function set_X_O(button) {
+        if (button.innerHTML == "" && !win) {
+          disableButtons();
+          button.innerHTML = `<img src='pictures/${turn.b}.png'>`;
+          board[buttonToIndex[button.id]] = turn.b;
+          check_win();
+          switchTurn();
+          enableButtons();
+          turn.b == "o" && !win
+            ? setTimeout(() => {
+                computerTurn();
+              }, Math.floor(Math.random() * 1200))
+            : "";
         }
+      }
 
-        function enableButtons() {
-            buttonss.forEach(buttons => {
-                buttons.disabled = false;
-            });
+      function switchTurn() {
+        turn.a = !turn.a;
+        if (turn.b == "x") {
+          turn.b = "o";
+        } else if (turn.b == "o") {
+          turn.b = "x";
         }
+      }
 
-        document.querySelectorAll('.but, #reset').forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                (!('ontouchstart' in window)) && this.classList.add('hover');
-            });
-            button.addEventListener('mouseleave', function() {
-                (!('ontouchstart' in window)) && this.classList.remove('hover');
-            });
+      function check_win() {
+        checkWinnerr = checkWinner();
+        if (checkWinnerr) {
+          if (checkWinnerr == "tie") showPopup("!תיקו");
+          else showPopup(`!ניצח ${turn.b}`);
+          win = true;
+        }
+      }
+
+      let buttonss = document.querySelectorAll(".button");
+
+      function disableButtons() {
+        buttonss.forEach((buttons) => {
+          buttons.disabled = true;
         });
+      }
 
+      function enableButtons() {
+        buttonss.forEach((buttons) => {
+          buttons.disabled = false;
+        });
+      }
 
+      document.querySelectorAll(".but, #reset").forEach((button) => {
+        button.addEventListener("mouseenter", function () {
+          !("ontouchstart" in window) && this.classList.add("hover");
+        });
+        button.addEventListener("mouseleave", function () {
+          !("ontouchstart" in window) && this.classList.remove("hover");
+        });
+      });
 
-        function resetgame(){
-            turn.a = true;
-            turn.b = 'x';
-            win = false;
+      function resetgame() {
+        turn.a = true;
+        turn.b = "x";
+        win = false;
 
+        const buttons = document.querySelectorAll(".but");
+        buttons.forEach(
+          (button) => (button.style.animation = "exitButtons 1s backwards")
+        );
+        setTimeout(() => {
+          buttons.forEach(
+            (button) => (
+              (button.innerHTML = ""), (board[buttonToIndex[button.id]] = "")
+            )
+          );
+          buttons.forEach(
+            (button) => (button.style.animation = "enterButtons 1s forwards")
+          );
+        }, 700);
+        setTimeout(() => {
+          buttons.forEach((button) => {
+            button.style.opacity = NaN;
+            button.style.transform = NaN;
+            button.style.animation = NaN;
+          });
+        }, 1700);
+      }
 
-            const buttons = document.querySelectorAll('.but');
-            buttons.forEach(button => button.style.animation = 'exitButtons 1s backwards');
-            setTimeout(() => {
-                buttons.forEach(button => button.innerHTML = '');
-                buttons.forEach(button => button.style.animation = 'enterButtons 1s forwards');
-            }, 700);
-            setTimeout(() => {
-                buttons.forEach(button => {
-                    button.style.opacity = NaN;
-                    button.style.transform = NaN;
-                    button.style.animation = NaN;
-                });
-            }, 1700);
-        }
+      function showPopup(message) {
+        const popup = document.getElementById("popup");
+        const popupMessage = document.getElementById("popup-message");
+        popupMessage.textContent = message;
 
-
-        function showPopup(message) {
-            const popup = document.getElementById('popup');
-            const popupMessage = document.getElementById('popup-message');
-            popupMessage.textContent = message;
-
-            
-            popup.style.display = 'block';
-            popup.style.animation = 'showPopup 0.5s forwards';
-
-            
-            setTimeout(() => {
-                popup.style.animation = 'hidePopup 0.5s forwards';
-                setTimeout(() => {
-                    popup.style.display = 'none';
-                }, 500);
-            }, 2000);
-        }
+        popup.style.display = "block";
+        popup.style.animation = "showPopup 0.5s forwards";
+        setTimeout(() => {
+          popup.style.animation = "hidePopup 0.5s forwards";
+          setTimeout(() => {
+            popup.style.display = "none";
+          }, 500);
+        }, 2000);
+      }
     </script>
-</body>
+  </body>
 </html>
