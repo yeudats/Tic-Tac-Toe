@@ -162,12 +162,12 @@
 
       function set_X_O(button) {
         if (button.innerHTML == "" && !win) {
-          disableButtons();
+          turn.b == "x" && disableButtons();
           button.innerHTML = `<img src='pictures/${turn.b}.png'>`;
           board[buttonToIndex[button.id]] = turn.b;
           check_win();
           switchTurn();
-          enableButtons();
+          turn.b == "x" && enableButtons();
           turn.b == "o" && !win
             ? setTimeout(() => {
                 computerTurn();
