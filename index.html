@@ -30,7 +30,7 @@
       let turn = { a: true, b: "x" };
       let board = ["", "", "", "", "", "", "", "", ""];
       let in_turn = false;
-      
+
       const scores = {
         o: 1,
         x: -1,
@@ -92,7 +92,6 @@
         let bestMove;
         let bord = board;
         let score;
-        
 
         for (let i = 0; i < bord.length; i++) {
           if (bord[i] === "") {
@@ -163,20 +162,29 @@
         return board.includes("") ? null : "tie";
       }
 
-      function set_X_O(button) {
-        if (button.innerHTML == "" && !win && !in_turn) {
+      function delay() {
+        return new Promise(resolve => {
+          setTimeout(() => {
+              computerTurn();
+              resolve();
+            }, Math.floor(Math.random() * 1200))
+        });
+      }
+
+      async function set_X_O(button) {
+        if (button.innerHTML == "" && !win && (!in_turn && turn.b == "x" || turn.b == "o")) {
           disableButtons();
           in_turn = true;
           button.innerHTML = `<img src='pictures/${turn.b}.png'>`;
           board[buttonToIndex[button.id]] = turn.b;
           check_win();
           switchTurn();
-          turn.b == "x" && enableButtons();
-          turn.b == "o" && !win
-            ? setTimeout(() => {
-                computerTurn();
-              }, Math.floor(Math.random() * 1200))
-            : "";
+
+          // computer turn
+          if (turn.b == "o" && !win) {
+            await delay();
+          }
+
           in_turn = false;
           enableButtons();
         }
@@ -228,7 +236,7 @@
         turn.b = "x";
         win = false;
         in_turn = false;
-        
+
         const buttons = document.querySelectorAll(".but");
         buttons.forEach(
           (button) => (button.style.animation = "exitButtons 1s backwards")
