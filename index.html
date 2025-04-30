@@ -29,7 +29,8 @@
       let win = false;
       let turn = { a: true, b: "x" };
       let board = ["", "", "", "", "", "", "", "", ""];
-
+      let in_turn = false;
+      
       const scores = {
         o: 1,
         x: -1,
@@ -91,7 +92,7 @@
         let bestMove;
         let bord = board;
         let score;
-        let in_turn = false;
+        
 
         for (let i = 0; i < bord.length; i++) {
           if (bord[i] === "") {
@@ -176,7 +177,7 @@
                 computerTurn();
               }, Math.floor(Math.random() * 1200))
             : "";
-            in_turn = false;
+          in_turn = false;
           enableButtons();
         }
       }
@@ -226,7 +227,8 @@
         turn.a = true;
         turn.b = "x";
         win = false;
-
+        in_turn = false;
+        
         const buttons = document.querySelectorAll(".but");
         buttons.forEach(
           (button) => (button.style.animation = "exitButtons 1s backwards")
