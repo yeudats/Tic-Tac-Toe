@@ -8,23 +8,23 @@
   </head>
 
   <body>
-        <div class="board">
-          <div id="a" class="but" onclick="set_X_O(this)" role="button"></div>
-          <div id="b" class="but" onclick="set_X_O(this)" role="button"></div>
-          <div id="c" class="but" onclick="set_X_O(this)" role="button"></div>
-          <div id="d" class="but" onclick="set_X_O(this)" role="button"></div>
-          <div id="e" class="but" onclick="set_X_O(this)" role="button"></div>
-          <div id="f" class="but" onclick="set_X_O(this)" role="button"></div>
-          <div id="g" class="but" onclick="set_X_O(this)" role="button"></div>
-          <div id="h" class="but" onclick="set_X_O(this)" role="button"></div>
-          <div id="i" class="but" onclick="set_X_O(this)" role="button"></div>
-        </div>
-        <div class="resets">
-          <div id="reset" onclick="resetgame()" role="button">משחק חדש</div>
-        </div>
-        <div id="popup" class="popup">
-          <p id="popup-message"></p>
-        </div>
+    <div class="board">
+      <div id="a" class="but" onclick="set_X_O(this)" role="button"></div>
+      <div id="b" class="but" onclick="set_X_O(this)" role="button"></div>
+      <div id="c" class="but" onclick="set_X_O(this)" role="button"></div>
+      <div id="d" class="but" onclick="set_X_O(this)" role="button"></div>
+      <div id="e" class="but" onclick="set_X_O(this)" role="button"></div>
+      <div id="f" class="but" onclick="set_X_O(this)" role="button"></div>
+      <div id="g" class="but" onclick="set_X_O(this)" role="button"></div>
+      <div id="h" class="but" onclick="set_X_O(this)" role="button"></div>
+      <div id="i" class="but" onclick="set_X_O(this)" role="button"></div>
+    </div>
+    <div class="resets">
+      <div id="reset" onclick="resetgame()" role="button">משחק חדש</div>
+    </div>
+    <div id="popup" class="popup">
+      <p id="popup-message"></p>
+    </div>
     <script>
       let win = false;
       let turn = { a: true, b: "x" };
@@ -162,7 +162,7 @@
 
       function set_X_O(button) {
         if (button.innerHTML == "" && !win) {
-          turn.b == "x" && disableButtons();
+          disableButtons();
           button.innerHTML = `<img src='pictures/${turn.b}.png'>`;
           board[buttonToIndex[button.id]] = turn.b;
           check_win();
@@ -173,6 +173,7 @@
                 computerTurn();
               }, Math.floor(Math.random() * 1200))
             : "";
+          enableButtons();
         }
       }
 
