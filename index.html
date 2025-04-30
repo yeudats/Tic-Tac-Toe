@@ -91,6 +91,8 @@
         let bestMove;
         let bord = board;
         let score;
+        let in_turn = false;
+
         for (let i = 0; i < bord.length; i++) {
           if (bord[i] === "") {
             bord[i] = "o";
@@ -161,8 +163,9 @@
       }
 
       function set_X_O(button) {
-        if (button.innerHTML == "" && !win) {
+        if (button.innerHTML == "" && !win && !in_turn) {
           disableButtons();
+          in_turn = true;
           button.innerHTML = `<img src='pictures/${turn.b}.png'>`;
           board[buttonToIndex[button.id]] = turn.b;
           check_win();
@@ -173,6 +176,7 @@
                 computerTurn();
               }, Math.floor(Math.random() * 1200))
             : "";
+            in_turn = false;
           enableButtons();
         }
       }
