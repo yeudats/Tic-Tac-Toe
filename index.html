@@ -29,7 +29,6 @@
       let win = false;
       let turn = { a: true, b: "x" };
       let board = ["", "", "", "", "", "", "", "", ""];
-      let in_turn = false;
 
       const scores = {
         o: 1,
@@ -172,9 +171,8 @@
       }
 
       async function set_X_O(button) {
-        if (button.innerHTML == "" && !win && (!in_turn && turn.b == "x" || turn.b == "o")) {
+        if (button.innerHTML == "" && !win) {
           disableButtons();
-          in_turn = true;
           button.innerHTML = `<img src='pictures/${turn.b}.png'>`;
           board[buttonToIndex[button.id]] = turn.b;
           check_win();
@@ -184,8 +182,6 @@
           if (turn.b == "o" && !win) {
             await delay();
           }
-
-          in_turn = false;
           enableButtons();
         }
       }
@@ -208,17 +204,17 @@
         }
       }
 
-      let buttonss = document.querySelectorAll(".button");
+      let buttonss = document.querySelectorAll(".but");
 
       function disableButtons() {
         buttonss.forEach((buttons) => {
-          buttons.disabled = true;
+          buttons.style.pointerEvents = "none";
         });
       }
 
       function enableButtons() {
         buttonss.forEach((buttons) => {
-          buttons.disabled = false;
+          buttons.style.pointerEvents = "auto";
         });
       }
 
